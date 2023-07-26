@@ -23,9 +23,13 @@ public class Stock {
     @Column(name = "company_name")
     private String name;
 
+    @Column(name = "logo_url")
+    private String logoUrl;
+
     public Stock(StockDataCommand dto) {
         this.ticker = dto.getTicker();
         this.name = dto.getName();
+        this.logoUrl = dto.getLogoUrl();
     }
 
 }

@@ -44,6 +44,7 @@ public class StockController {
             JsonNode jsonNode = objectMapper.readTree(responseData);
             System.out.println(jsonNode.get("results").get("ticker"));
             System.out.println(jsonNode.get("results").get("name"));
+            System.out.println(jsonNode.get("results").get("branding").get("logo_url"));
             StockDataCommand dto = new StockDataCommand(jsonNode);
             stockService.saveStock(dto);
 
