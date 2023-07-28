@@ -1,6 +1,7 @@
 package com.example.stockmarketanalyzer.controller;
 
 import com.example.stockmarketanalyzer.dto.incoming.StockDataCommand;
+import com.example.stockmarketanalyzer.dto.outgoing.StockDetails;
 import com.example.stockmarketanalyzer.service.StockService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,12 +17,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Controller
 @RequestMapping("api/tickers")
 public class StockController {
 
     private StockService stockService;
+    private final String POLYGON_API_KEY = "bHLKcB4JTWbBZLpiv3r7_8vHjYlKmXE6";
+
 
     @Autowired
     public StockController(StockService stockService) {
@@ -29,10 +33,10 @@ public class StockController {
     }
 
     @GetMapping("/{ticker}")
-    public ResponseEntity<String> getTickerData(@PathVariable String ticker) {
+    public ResponseEntity<Void> addTicker(@PathVariable String ticker) {
         OkHttpClient client = new OkHttpClient();
-        String apiKey = "bHLKcB4JTWbBZLpiv3r7_8vHjYlKmXE6";
-        String url = String.format("https://api.polygon.io/v3/reference/tickers/%s/?apiKey=%s", ticker, apiKey);
+
+        String url = String.format("https://api.polygon.io/v3/reference/tickers/%s/?apiKey=%s", ticker, POLYGON_API_KEY);
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -42,16 +46,17 @@ public class StockController {
             responseData = response.body().string();
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(responseData);
-            System.out.println(jsonNode.get("results").get("ticker"));
-            System.out.println(jsonNode.get("results").get("name"));
-            System.out.println(jsonNode.get("results").get("branding").get("logo_url"));
             StockDataCommand dto = new StockDataCommand(jsonNode);
             stockService.saveStock(dto);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println(responseData);
-        return new ResponseEntity<>(responseData, HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/last/{ticker}")
+    public ResponseEntity<StockDetails> getLastPrice(@PathVariable String ticker) throws IOException {
+
+        return new ResponseEntity<>(stockService.getLastStockPrice(ticker),HttpStatus.OK);
     }
 }
