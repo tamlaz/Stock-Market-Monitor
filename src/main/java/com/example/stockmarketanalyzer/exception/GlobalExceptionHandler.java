@@ -27,7 +27,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.nio.file.AccessDeniedException;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
@@ -67,6 +68,17 @@ public class GlobalExceptionHandler {
         HttpStatus status = HttpStatus.BAD_REQUEST;
 
         ApiError body = new ApiError("JSON_PARSE_ERROR","The request could not be parsed as a valid JSON.", ex.getLocalizedMessage());
+
+        return new ResponseEntity<>(body, status);
+
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<ApiError> handleIOException(IOException ex) {
+        logger.error("Request JSON could no be parsed: ", ex);
+        HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        ApiError body = new ApiError("IOException","An IOException has occurred.", ex.getLocalizedMessage());
 
         return new ResponseEntity<>(body, status);
 
