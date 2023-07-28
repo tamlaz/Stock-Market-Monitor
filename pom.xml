@@ -12,7 +12,7 @@
 	</parent>
 
 	<groupId>hu.progmasters</groupId>
-	<artifactId>daily-bugle</artifactId>
+	<artifactId>stock-monitor</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<properties>
