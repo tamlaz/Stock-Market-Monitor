@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Table(name = "stocks")
 @Data
 @NoArgsConstructor
-public class CustomStock {
+public class Stock {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,10 +26,19 @@ public class CustomStock {
     @Column(name = "logo_url")
     private String logoUrl;
 
-    public CustomStock(StockDataCommand dto) {
+    @Column(name = "icon_url")
+    private String iconUrl;
+
+
+    @Column(name = "description", columnDefinition = "TEXT")
+    private String description;
+
+    public Stock(StockDataCommand dto) {
         this.ticker = dto.getTicker();
         this.name = dto.getName();
         this.logoUrl = dto.getLogoUrl();
+        this.iconUrl = dto.getIconUrl();
+        this.description = dto.getDescription();
     }
 
 }
