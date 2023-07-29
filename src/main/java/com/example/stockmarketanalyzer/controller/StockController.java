@@ -1,5 +1,6 @@
 package com.example.stockmarketanalyzer.controller;
 
+import com.example.stockmarketanalyzer.dto.outgoing.StockDetails;
 import com.example.stockmarketanalyzer.dto.outgoing.StockPriceDetails;
 import com.example.stockmarketanalyzer.service.StockService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -27,8 +28,13 @@ public class StockController {
     }
 
     @GetMapping("/{ticker}")
-    public ResponseEntity<JsonNode> addTicker(@PathVariable String ticker) {
-        return new ResponseEntity<>(stockService.saveStock(ticker),HttpStatus.OK);
+    public ResponseEntity<JsonNode> addStock(@PathVariable String ticker) {
+        return new ResponseEntity<>(stockService.saveStock(ticker),HttpStatus.CREATED);
+    }
+
+    @GetMapping("data/{ticker}")
+    public ResponseEntity<StockDetails> getStockData(@PathVariable Long id) {
+        return new ResponseEntity<>(stockService.getStockData(id), HttpStatus.OK);
     }
 
     @GetMapping("/last/{ticker}")

@@ -2,6 +2,7 @@ package com.example.stockmarketanalyzer.service;
 
 import com.example.stockmarketanalyzer.domain.Stock;
 import com.example.stockmarketanalyzer.dto.incoming.StockDataCommand;
+import com.example.stockmarketanalyzer.dto.outgoing.StockDetails;
 import com.example.stockmarketanalyzer.dto.outgoing.StockPriceDetails;
 import com.example.stockmarketanalyzer.repository.StockRepository;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -10,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+
+import javax.persistence.EntityNotFoundException;
 
 @Service
 @Transactional
@@ -26,11 +29,6 @@ public class StockService {
         this.restTemplate = restTemplate;
     }
 
-    public void saveStock(StockDataCommand dto) {
-        Stock stockToSave = new Stock(dto);
-        stockRepository.save(stockToSave);
-    }
-
     public StockPriceDetails getLastStockPrice(String symbol)  {
         String url = "https://finnhub.io/api/v1/quote?symbol=" + symbol + "&token=" + FINNHUB_API_KEY;
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(url, JsonNode.class);
@@ -39,27 +37,17 @@ public class StockService {
     }
 
     public JsonNode saveStock(String ticker) {
-        OkHttpClient client = new OkHttpClient();
         String url = String.format("https://api.polygon.io/v3/reference/tickers/%s/?apiKey=%s", ticker, POLYGON_API_KEY);
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(url, JsonNode.class);
         JsonNode jsonNode = response.getBody();
         StockDataCommand stockDto = new StockDataCommand(jsonNode);
         stockRepository.save(new Stock(stockDto));
         return jsonNode;
-//        Request request = new Request.Builder()
-//                .url(url)
-//                .build();
-//        String responseData = null;
-//        try {
-//            Response response = client.newCall(request).execute();
-//            responseData = response.body().string();
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            JsonNode jsonNode = objectMapper.readTree(responseData);
-//            StockDataCommand dto = new StockDataCommand(jsonNode);
-//            stockService.saveStock(dto);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+    }
 
+    public StockDetails getStockData(Long id) {
+        Stock stock = stockRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Could not find this ticker."));
+        return new StockDetails(stock);
     }
 }
