@@ -1,17 +1,17 @@
-<table class="table">
+<table class="table mt-5">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Ticker</th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let stock of stocks; let i = index">
-        <th scope="row">{{i}}</th>
+        <th scope="row">{{i+1}}</th>
         <td>{{stock.ticker}}</td>
-        <td>{{stock.companyName}}</td>
+        <td>{{stock.name}}</td>
         <td>
             <button type="button" class="btn btn-info">Details</button>
         </td>

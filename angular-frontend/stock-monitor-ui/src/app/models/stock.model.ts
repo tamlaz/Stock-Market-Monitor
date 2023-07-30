@@ -1,5 +1,5 @@
 export interface Stock{
     ticker: string,
-    companyName: string,
+    name: string,
     description: string
 }
