@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
@@ -29,12 +30,12 @@ public class StockController {
         return new ResponseEntity<>(stockService.getAllListedStocks(), HttpStatus.OK);
     }
 
-    @GetMapping("/{ticker}")
+    @PostMapping("/{ticker}")
     public ResponseEntity<JsonNode> addStock(@PathVariable String ticker) {
         return new ResponseEntity<>(stockService.saveStock(ticker),HttpStatus.CREATED);
     }
 
-    @GetMapping("data/{ticker}")
+    @GetMapping("data/{id}")
     public ResponseEntity<StockDetails> getStockData(@PathVariable Long id) {
         return new ResponseEntity<>(stockService.getStockData(id), HttpStatus.OK);
     }
