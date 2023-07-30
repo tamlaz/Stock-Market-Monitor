@@ -16,10 +16,14 @@ public class StockDataCommand {
 
 
     public StockDataCommand(JsonNode jsonNode) {
-        this.ticker = jsonNode.get("results").get("ticker").toString();
-        this.name = jsonNode.get("results").get("name").toString();
-        this.logoUrl = jsonNode.get("results").get("branding").get("logo_url").toString();
-        this.iconUrl = jsonNode.get("results").get("branding").get("icon_url").toString();
-        this.description = jsonNode.get("results").get("description").toString();
+        this.ticker = trimQuotationsMark(jsonNode.get("results").get("ticker").toString());
+        this.name = trimQuotationsMark(jsonNode.get("results").get("name").toString());
+        this.logoUrl = trimQuotationsMark(jsonNode.get("results").get("branding").get("logo_url").toString());
+        this.iconUrl = trimQuotationsMark(jsonNode.get("results").get("branding").get("icon_url").toString());
+        this.description = trimQuotationsMark(jsonNode.get("results").get("description").toString());
+    }
+
+    private String trimQuotationsMark(String data) {
+        return data.substring(1,data.length()-1);
     }
 }
