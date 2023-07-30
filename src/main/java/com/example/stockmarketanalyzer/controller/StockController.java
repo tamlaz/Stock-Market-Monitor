@@ -4,7 +4,6 @@ import com.example.stockmarketanalyzer.dto.outgoing.StockDetails;
 import com.example.stockmarketanalyzer.dto.outgoing.StockPriceDetails;
 import com.example.stockmarketanalyzer.service.StockService;
 import com.fasterxml.jackson.databind.JsonNode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("api/tickers")
@@ -20,11 +20,13 @@ public class StockController {
 
     private StockService stockService;
 
-
-
-    @Autowired
     public StockController(StockService stockService) {
         this.stockService = stockService;
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StockDetails>> getAllListedStocks(){
+        return new ResponseEntity<>(stockService.getAllListedStocks(), HttpStatus.OK);
     }
 
     @GetMapping("/{ticker}")

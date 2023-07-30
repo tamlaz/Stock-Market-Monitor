@@ -6,13 +6,14 @@ import com.example.stockmarketanalyzer.dto.outgoing.StockDetails;
 import com.example.stockmarketanalyzer.dto.outgoing.StockPriceDetails;
 import com.example.stockmarketanalyzer.repository.StockRepository;
 import com.fasterxml.jackson.databind.JsonNode;
-import okhttp3.OkHttpClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -49,5 +50,9 @@ public class StockService {
         Stock stock = stockRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Could not find this ticker."));
         return new StockDetails(stock);
+    }
+
+    public List<StockDetails> getAllListedStocks() {
+        return stockRepository.findAll().stream().map(StockDetails::new).collect(Collectors.toList());
     }
 }
