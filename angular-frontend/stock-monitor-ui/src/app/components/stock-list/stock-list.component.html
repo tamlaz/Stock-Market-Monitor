@@ -1,1 +1,20 @@
-<p>stock-list works!</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of stocks; let i = index">
+        <th scope="row">{{i}}</th>
+        <td>{{stock.ticker}}</td>
+        <td>{{stock.companyName}}</td>
+        <td>
+            <button type="button" class="btn btn-info">Details</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
