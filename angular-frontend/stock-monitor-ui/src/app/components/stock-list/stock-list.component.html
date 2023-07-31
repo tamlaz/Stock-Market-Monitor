@@ -2,18 +2,22 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Ticker</th>
-        <th scope="col">Name</th>
-        <th scope="col"></th>
+        <th>Ticker</th>
+        <th >Name</th>
+        <th ></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let stock of stocks; let i = index">
-        <th scope="row">{{i+1}}</th>
+        <td>
+          <div class="icon-container">
+            <img [src]="stock.iconUrl" alt="icon">
+          </div>
+        </td>
         <td>{{stock.ticker}}</td>
         <td>{{stock.name}}</td>
         <td>
-            <button type="button" class="btn btn-info">Details</button>
+            <button type="button" class="btn btn-info" (click)="sendData(stock.id, stock.ticker)">Details</button>
         </td>
       </tr>
     </tbody>
