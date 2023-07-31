@@ -20,7 +20,8 @@ public class StockPriceDetails {
         this.lastStockPrice = jsonNode.get("c").asDouble();
         this.highPrice = jsonNode.get("h").asDouble();
         this.lowPrice = jsonNode.get("l").asDouble();
-        this.openPrice = jsonNode.get("pc").asDouble();
+        this.openPrice = jsonNode.get("o").asDouble();
+        this.previousClosePrice = jsonNode.get("pc").asDouble();
         this.lastTradeTime = jsonNode.get("t").asDouble();
     }
 
