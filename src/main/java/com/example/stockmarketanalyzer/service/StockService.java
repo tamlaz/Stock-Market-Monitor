@@ -30,11 +30,11 @@ public class StockService {
         this.restTemplate = restTemplate;
     }
 
-    public StockPriceDetails getLastStockPrice(String symbol)  {
+    public JsonNode getLastStockPrice(String symbol)  {
         String url = "https://finnhub.io/api/v1/quote?symbol=" + symbol + "&token=" + FINNHUB_API_KEY;
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(url, JsonNode.class);
         JsonNode jsonNode = response.getBody();
-        return new StockPriceDetails(jsonNode);
+        return jsonNode;
     }
 
     public JsonNode saveStock(String ticker) {
@@ -42,6 +42,10 @@ public class StockService {
         ResponseEntity<JsonNode> response = restTemplate.getForEntity(url, JsonNode.class);
         JsonNode jsonNode = response.getBody();
         StockDataCommand stockDto = new StockDataCommand(jsonNode);
+        String logoUrlWithApiKey = stockDto.getLogoUrl() + "?apiKey=bHLKcB4JTWbBZLpiv3r7_8vHjYlKmXE6";
+        String iconUrlWithApiKey = stockDto.getIconUrl() + "?apiKey=bHLKcB4JTWbBZLpiv3r7_8vHjYlKmXE6";
+        stockDto.setLogoUrl(logoUrlWithApiKey);
+        stockDto.setIconUrl(iconUrlWithApiKey);
         stockRepository.save(new Stock(stockDto));
         return jsonNode;
     }
@@ -49,7 +53,17 @@ public class StockService {
     public StockDetails getStockData(Long id) {
         Stock stock = stockRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Could not find this ticker."));
-        return new StockDetails(stock);
+        System.out.println(stock.getTicker());
+        JsonNode jsonNode = getLastStockPrice(stock.getTicker());
+        System.out.println(jsonNode);
+        StockDetails stockDetails = new StockDetails(stock);
+        stockDetails.setLastStockPrice(jsonNode.get("c").asDouble());
+        stockDetails.setHighPrice(jsonNode.get("h").asDouble());
+        stockDetails.setLowPrice(jsonNode.get("l").asDouble());
+        stockDetails.setOpenPrice(jsonNode.get("o").asDouble());
+        stockDetails.setPreviousClosePrice(jsonNode.get("pc").asDouble());
+        stockDetails.setLastTradeTime(jsonNode.get("t").asDouble());
+        return stockDetails;
     }
 
     public List<StockDetails> getAllListedStocks() {
