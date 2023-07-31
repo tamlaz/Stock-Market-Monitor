@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -31,18 +30,18 @@ public class StockController {
     }
 
     @PostMapping("/{ticker}")
-    public ResponseEntity<JsonNode> addStock(@PathVariable String ticker) {
+    public ResponseEntity<JsonNode> addStock(@PathVariable String ticker){
         return new ResponseEntity<>(stockService.saveStock(ticker),HttpStatus.CREATED);
     }
 
-    @GetMapping("data/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<StockDetails> getStockData(@PathVariable Long id) {
         return new ResponseEntity<>(stockService.getStockData(id), HttpStatus.OK);
     }
 
     @GetMapping("/last/{ticker}")
-    public ResponseEntity<StockPriceDetails> getLastPrice(@PathVariable String ticker) throws IOException {
-
-        return new ResponseEntity<>(stockService.getLastStockPrice(ticker),HttpStatus.OK);
+    public ResponseEntity<StockPriceDetails> getLastPrice(@PathVariable String ticker) {
+        StockPriceDetails priceDetails = new StockPriceDetails();
+        return new ResponseEntity<>(priceDetails,HttpStatus.OK);
     }
 }
