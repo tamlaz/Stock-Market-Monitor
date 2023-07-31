@@ -1,1 +1,17 @@
-<p>stock-details works!</p>
+<div *ngIf="!!stock" class="card" style="width: 18rem;">
+  <img [src]="stock.logoUrl" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{stock.name}}</h5>
+    <p class="d-inline-flex gap-1">
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Company Description
+      </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body">
+        {{stock.description}}
+      </div>
+    </div>
+    <p>Price: ${{stock.lastStockPrice}}</p>
+  </div>
+</div>
