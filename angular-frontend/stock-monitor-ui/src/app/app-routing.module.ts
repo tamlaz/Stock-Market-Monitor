@@ -1,7 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {StockListComponent} from "./components/stock-list/stock-list.component";
+import {StockDetailsComponent} from "./components/stock-details/stock-details.component";
 
-const routes: Routes = [];
+const routes: Routes = [
+  {path: 'stock-list', component: StockListComponent},
+  {path: 'stock-details/:id', component: StockDetailsComponent},
+  {path: '**', redirectTo: '/stock-list'}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
