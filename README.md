@@ -1,1 +1,1 @@
-# Stock-Market-Analyzer
+# Stock-Market-Monitor
