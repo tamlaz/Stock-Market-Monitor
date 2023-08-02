@@ -20,3 +20,7 @@ logging:
     org.hibernate: error
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+
+finnhubapikey: "cj1bjh9r01qhv0uhmnf0cj1bjh9r01qhv0uhmnfg"
+polygonapikey: "bHLKcB4JTWbBZLpiv3r7_8vHjYlKmXE6"
