@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Stock } from 'src/app/models/stock.model';
+import {StockModel} from 'src/app/models/stock.model';
 import { StockService } from 'src/app/services/stock.service';
 import {Router} from "@angular/router";
 
@@ -10,7 +10,7 @@ import {Router} from "@angular/router";
 })
 export class StockListComponent {
 
-  stocks: Stock[] = [];
+  stocks: StockModel[] = [];
 
   constructor(private stockService: StockService, private router: Router) {
 

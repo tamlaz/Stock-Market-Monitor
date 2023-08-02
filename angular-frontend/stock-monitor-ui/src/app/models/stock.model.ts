@@ -1,4 +1,4 @@
-export interface Stock {
+export interface StockModel {
   id?: number,
   ticker: string,
   name: string,

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Stock} from "../../models/stock.model";
+import {StockModel} from "../../models/stock.model";
 import {StockService} from "../../services/stock.service";
 import {ActivatedRoute} from "@angular/router";
 import {StockPrice} from "../../models/stock-price.model";
@@ -12,10 +12,10 @@ import {StockPrice} from "../../models/stock-price.model";
 })
 export class StockDetailsComponent {
 
-  stockId: number | undefined;
-  ticker: string | undefined;
-  stock: Stock | undefined;
-  stockPrice: StockPrice | undefined;
+  stockId?: number;
+  ticker?: string;
+  stock?: StockModel;
+  stockPrice?: StockPrice;
 
   constructor(private stockService: StockService, private activatedRoute: ActivatedRoute) {
       this.activatedRoute.params.subscribe(params => {

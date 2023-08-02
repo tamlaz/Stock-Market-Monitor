@@ -2,11 +2,11 @@ table {
   max-width: 60%;
 }
 
-.icon-container {
-  max-width: 10%;
+td {
+  width: 20%;
 }
 
 img {
   object-fit: contain;
-  max-width: 100%;
+  max-width: 25%;
 }
