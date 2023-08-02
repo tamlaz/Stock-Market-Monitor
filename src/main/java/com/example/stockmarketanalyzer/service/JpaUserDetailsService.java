@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -57,7 +58,7 @@ public class JpaUserDetailsService implements UserDetailsService {
             customUser.setFirstName(customUserCommand.getFirstName());
             customUser.setLastName(customUserCommand.getLastName());
             customUser.setCreatedAt(LocalDateTime.now());
-            customUser.setUserRoles(customUserCommand.getRoles().stream().map(UserRole::valueOf).collect(Collectors.toList()));
+            customUser.setUserRoles(List.of("ROLE_USER").stream().map(UserRole::valueOf).collect(Collectors.toList()));
             userRepository.save(customUser);
         }
     }
