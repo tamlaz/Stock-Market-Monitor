@@ -7,18 +7,22 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { StockListComponent } from './components/stock-list/stock-list.component';
 import { StockDetailsComponent } from './components/stock-details/stock-details.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     StockListComponent,
-    StockDetailsComponent
+    StockDetailsComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
