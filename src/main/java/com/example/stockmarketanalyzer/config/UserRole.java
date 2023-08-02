@@ -2,7 +2,6 @@ package com.example.stockmarketanalyzer.config;
 
 public enum UserRole {
 
-    ROLE_INVESTOR("INVESTOR"),
     ROLE_USER("USER"),
     ROLE_ADMIN("ADMIN");
 
