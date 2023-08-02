@@ -13,10 +13,19 @@ export class RegistrationComponent {
 
   constructor(private accountService: UserAccountService, private builder: FormBuilder) {
     this.registrationForm = this.builder.group({
-      email: ['', Validators.required],
+      email: ['', [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')
+      ]],
       password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      firstName: ['', [
+        Validators.required,
+        Validators.pattern('^[A-Z]+[a-z]+')
+      ]],
+      lastName: ['', [
+        Validators.required,
+        Validators.pattern('^[A-Z]+[a-z]+')
+      ]]
     })
   }
 

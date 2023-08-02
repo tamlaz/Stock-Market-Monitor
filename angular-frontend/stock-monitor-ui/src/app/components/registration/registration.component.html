@@ -2,21 +2,93 @@
   <h3>Registration form</h3>
   <form [formGroup]="registrationForm" (ngSubmit)="register()">
     <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
-      <input type="email" class="form-control" formControlName="email" id="email" placeholder="Email">
+      <label for="email" class="form-label"
+             [ngClass]="{'text-danger': (registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched)
+    || (registrationForm).get('email')?.errors?.['serverError']}"
+      >Email address</label>
+      <input type="email"
+             class="form-control"
+             formControlName="email"
+             id="email"
+             placeholder="Email"
+             [ngClass]="{'is-invalid': (registrationForm.get('email')?.invalid && registrationForm.get('email')?.touched)
+    || (registrationForm).get('email')?.errors?.['serverError']}"
+      >
+      <div *ngIf="registrationForm.get('email')?.invalid && (registrationForm.get('email')?.touched ||
+    registrationForm.get('email')?.dirty)" class="alert alert-danger mt-3">
+        <small *ngIf="registrationForm.get('email')?.errors?.['required']">
+          Please enter an email address!
+        </small>
+        <small *ngIf="registrationForm.get('email')?.errors?.['pattern']">
+          Please enter a valid email address!
+        </small>
+      </div>
+
     </div>
     <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" formControlName="password" id="password" placeholder="Password">
+      <label for="password" class="form-label"
+             [ngClass]="{'text-danger': (registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched)
+    || (registrationForm).get('password')?.errors?.['serverError']}">Password</label>
+      <input type="password"
+             class="form-control"
+             formControlName="password"
+             id="password"
+             placeholder="Password"
+             [ngClass]="{'is-invalid': (registrationForm.get('password')?.invalid && registrationForm.get('password')?.touched)
+    || (registrationForm).get('password')?.errors?.['serverError']}">
+      <div *ngIf="registrationForm.get('password')?.invalid && (registrationForm.get('password')?.touched ||
+    registrationForm.get('password')?.dirty)" class="alert alert-danger mt-3">
+        <small *ngIf="registrationForm.get('password')?.errors?.['required']">
+          Please enter a password!
+        </small>
+      </div>
+
+
     </div>
     <div class="mb-3">
-      <label for="firstName" class="form-label">First Name</label>
-      <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="First Name">
+      <label for="firstName" class="form-label"
+             [ngClass]="{'text-danger': (registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched)
+    || (registrationForm).get('firstName')?.errors?.['serverError']}">First Name</label>
+      <input type="text"
+             class="form-control"
+             formControlName="firstName"
+             id="firstName"
+             placeholder="First Name"
+             [ngClass]="{'is-invalid': (registrationForm.get('firstName')?.invalid && registrationForm.get('firstName')?.touched)
+    || (registrationForm).get('firstName')?.errors?.['serverError']}">
+      <div *ngIf="registrationForm.get('firstName')?.invalid && (registrationForm.get('firstName')?.touched ||
+    registrationForm.get('firstName')?.dirty)" class="alert alert-danger mt-3">
+        <small *ngIf="registrationForm.get('firstName')?.errors?.['required']">
+          Please enter your first name!
+        </small>
+        <small *ngIf="registrationForm.get('firstName')?.errors?.['pattern']">
+          Names should contain multiple letters and should start with a capital letter!
+        </small>
+      </div>
     </div>
+
+
     <div class="mb-3">
-      <label for="lastName" class="form-label">Last Name</label>
-      <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="Last Name">
+      <label for="lastName" class="form-label"
+             [ngClass]="{'text-danger': (registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched)
+    || (registrationForm).get('lastName')?.errors?.['serverError']}">Last Name</label>
+      <input type="text"
+             class="form-control"
+             formControlName="lastName"
+             id="lastName"
+             placeholder="Last Name"
+             [ngClass]="{'is-invalid': (registrationForm.get('lastName')?.invalid && registrationForm.get('lastName')?.touched)
+    || (registrationForm).get('lastName')?.errors?.['serverError']}">
+      <div *ngIf="registrationForm.get('lastName')?.invalid && (registrationForm.get('lastName')?.touched ||
+    registrationForm.get('lastName')?.dirty)" class="alert alert-danger mt-3">
+        <small *ngIf="registrationForm.get('lastName')?.errors?.['required']">
+          Please enter your last name!
+        </small>
+        <small *ngIf="registrationForm.get('lastName')?.errors?.['pattern']">
+         Names should contain multiple letters and should start with a capital letter!
+        </small>
+      </div>
     </div>
-    <button type="submit" class="btn btn-outline-secondary">Submit</button>
+    <button type="submit" [disabled]="registrationForm.invalid" class="btn btn-outline-secondary">Submit</button>
   </form>
 </div>
