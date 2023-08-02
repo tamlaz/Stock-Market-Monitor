@@ -13,6 +13,5 @@ public class CustomUserCommand {
     private String password;
     private String firstName;
     private String lastName;
-    private List<String> roles;
 
 }
