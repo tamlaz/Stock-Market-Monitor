@@ -1,25 +1,49 @@
-<table class="table mt-5">
+<div class="container mt-5">
+  <h2>Listed Stocks</h2>
+  <table class="table mt-5">
     <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th>Ticker</th>
-        <th >Name</th>
-        <th ></th>
-      </tr>
+    <tr>
+      <th scope="col">#</th>
+      <th>Ticker</th>
+      <th>Price</th>
+      <th>Change</th>
+      <th>Change %</th>
+      <th>Last Close</th>
+      <th></th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let stock of stocks; let i = index">
+    <tr *ngFor="let stock of stocks">
 
-        <td class="icon">
-          <div class="icon-container">
-            <img [src]="stock.iconUrl" alt="icon">
+      <td class="icon cell-container">
+        <div class="icon-container">
+          <img [src]="stock.iconUrl" alt="icon">
+        </div>
+      </td>
+      <td class="cell-container">{{stock.ticker}}</td>
+      <td class="cell-container" >{{stock.stockPriceDetails.lastStockPrice}}$</td>
+      <td class="cell-container" [ngClass]="{'green': stock.stockPriceDetails.priceChange >= 0.00, 'red': stock.stockPriceDetails.priceChange < 0.00}">
+        {{setDecimalsToTwo(stock.stockPriceDetails.priceChange)}}
+      </td>
+      <td class="cell-container image-cell">
+        <div [ngClass]="{'green': stock.stockPriceDetails.priceChange >= 0.00, 'red': stock.stockPriceDetails.priceChange < 0.00}">
+          <div class="image-wrapper" *ngIf="stock.stockPriceDetails.priceChange >= 0.00">
+            <img class="arrow"  src="assets/images/green.png" alt="green up arrow">
           </div>
-        </td>
-        <td>{{stock.ticker}}</td>
-        <td>{{stock.name}}</td>
-        <td>
-            <button type="button" class="btn btn-info" (click)="sendData(stock.id, stock.ticker)">Details</button>
-        </td>
-      </tr>
+          <div class="image-wrapper" *ngIf="stock.stockPriceDetails.priceChange < 0.00">
+            <img class="arrow"  src="assets/images/red-down.svg.png" alt="red down arrow">
+          </div>
+          <span class="text">
+           ({{setDecimalsToTwo(stock.stockPriceDetails.priceChangeInPercent)}}%)
+          </span>
+        </div>
+      </td>
+      <td class="cell-container">{{stock.stockPriceDetails.previousClosePrice}}</td>
+      <td class="cell-container">
+        <button type="button" class="btn btn-dark" (click)="sendData(stock.id)">Details</button>
+      </td>
+
+    </tr>
     </tbody>
   </table>
+</div>

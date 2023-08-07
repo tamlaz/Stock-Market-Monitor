@@ -1,5 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell-container, th {
+  align-items: center;
+  text-align: center;
+  vertical-align: middle;
+}
+
 table {
-  max-width: 60%;
+  max-width: 70%;
+}
+
+thead {
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
+}
+
+tbody {
+  border-bottom-left-radius: 5%;
+  border-bottom-right-radius: 5%;
 }
 
 td {
@@ -8,5 +31,31 @@ td {
 
 img {
   object-fit: contain;
-  max-width: 25%;
+  max-width: 40%;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+td span {
+
+}
+
+.arrow {
+  width: 15%;
+}
+
+.image-wrapper {
+  display: table-cell;
+
+}
+
+.image-wrapper .text {
+  display: inline-block;
+  margin-left: 10px;
 }
