@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {UserAccountService} from "../../services/user-account.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {validationHandler} from "../utils/validation-handler";
 
 @Component({
   selector: 'app-registration',
@@ -34,7 +35,10 @@ export class RegistrationComponent {
     const data = {...this.registrationForm.value};
     this.accountService.registerAccount(data).subscribe({
       next: () => {},
-      error: err => console.log(err),
+      error: error => {
+        validationHandler(error, this.registrationForm);
+        console.log(error);
+      },
       complete: () => {
         this.registrationForm.reset();
         localStorage.setItem('auth', 'true');

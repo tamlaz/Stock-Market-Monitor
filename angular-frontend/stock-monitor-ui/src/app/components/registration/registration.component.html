@@ -22,6 +22,9 @@
         <small *ngIf="registrationForm.get('email')?.errors?.['pattern']">
           Please enter a valid email address!
         </small>
+        <small *ngIf="registrationForm.get('email')?.errors?.['serverError']">
+          {{registrationForm.get('email')?.errors?.['serverError']}}
+        </small>
       </div>
 
     </div>
@@ -87,6 +90,7 @@
         <small *ngIf="registrationForm.get('lastName')?.errors?.['pattern']">
          Names should contain multiple letters and should start with a capital letter!
         </small>
+
       </div>
     </div>
     <button type="submit" [disabled]="registrationForm.invalid" class="btn btn-outline-secondary">Submit</button>

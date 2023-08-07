@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import java.util.Optional;
+
 
 @Component
 public class CustomUserCommandValidator implements Validator {
@@ -26,10 +26,10 @@ public class CustomUserCommandValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CustomUserCommand customUserCommand = (CustomUserCommand) target;
-        Optional<CustomUser> customUser = customUserRepository.findByEmail(customUserCommand.getEmail());
+        CustomUser customUser= customUserRepository.findByEmail(customUserCommand.getEmail()).orElse(null);
 
-        if (customUser.isPresent()) {
-            errors.rejectValue("email", "email.exists");
+        if (customUser != null) {
+            errors.rejectValue("email", "email.already.used");
         }
     }
 }

@@ -5,7 +5,6 @@ import com.example.stockmarketmonitor.dto.outgoing.ProfileDataDetails;
 import com.example.stockmarketmonitor.service.CustomUserService;
 import com.example.stockmarketmonitor.service.JpaUserDetailsService;
 import com.example.stockmarketmonitor.validators.CustomUserCommandValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
