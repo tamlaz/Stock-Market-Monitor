@@ -1,17 +1,16 @@
-<div *ngIf="!!stock" class="card" style="width: 18rem;">
-  <img [src]="stock.logoUrl" class="card-img-top" alt="...">
-  <div class="card-body">
-    <h5 class="card-title">{{stock.name}}</h5>
-    <p class="d-inline-flex gap-1">
-      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        Company Description
-      </button>
-    </p>
-    <div class="collapse" id="collapseExample">
-      <div class="card card-body">
-        {{stock.description}}
-      </div>
+<div class="container mt-5">
+  <div *ngIf="!!stock" class="card" style="width: 18rem;">
+    <div class="img-container">
+      <img [src]="stock.logoUrl" class="card-img-top" [alt]="stock.ticker">
     </div>
-    <p>Price: ${{stock.lastStockPrice}}</p>
+    <div class="card-body">
+      <h5 class="card-title">{{stock.ticker}}</h5>
+      <h6 *ngIf="!!stockPrice">Price: ${{stockPrice.lastStockPrice}}</h6>
+      <h6 *ngIf="!stockPrice">Price: ${{stock.stockPriceDetails.lastStockPrice}}</h6>
+      <button class="btn btn-outline-dark" (click)="toggleDescVisibility()">Read company description</button>
+        <div *ngIf="isCompanyDescVisible" class="card-text">
+          {{stock.description}}
+        </div>
+    </div>
   </div>
 </div>
