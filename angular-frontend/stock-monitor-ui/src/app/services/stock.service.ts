@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {StockModel} from '../models/stock.model';
-import {StockPrice} from "../models/stock-price.model";
+import {StockListModel} from '../models/stock-list-model';
+import {StockPriceModel} from "../models/stock-price-model";
 import {Observable, Subject} from "rxjs";
+import {StockDetailsModel} from "../models/stock-details-model";
 
 const BASE_URL = 'http://localhost:8080/api/tickers';
 
@@ -15,16 +16,16 @@ export class StockService {
 
   constructor(private http: HttpClient) { }
 
-  getListedStocks(): Observable<StockModel[]> {
-    return this.http.get<StockModel[]>(BASE_URL);
+  getListedStocks(): Observable<StockListModel[]> {
+    return this.http.get<StockListModel[]>(BASE_URL);
   }
 
-  getStockData(id: number | undefined): Observable<StockModel> {
-    return this.http.get<StockModel>(`${BASE_URL}/${id}`);
+  getStockData(id: number | undefined): Observable<StockDetailsModel> {
+    return this.http.get<StockDetailsModel>(`${BASE_URL}/${id}`);
   }
 
-  getStockPriceData(ticker: string | undefined) {
-    return this.http.get<StockPrice>(`${BASE_URL}/last/${ticker}`);
+  getStockPriceData(ticker: string | undefined): Observable<StockPriceModel> {
+    return this.http.get<StockPriceModel>(`${BASE_URL}/last/${ticker}`);
   }
 
 

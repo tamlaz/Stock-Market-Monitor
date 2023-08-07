@@ -1,6 +1,7 @@
 package com.example.stockmarketmonitor.controller;
 
 import com.example.stockmarketmonitor.dto.outgoing.StockDetails;
+import com.example.stockmarketmonitor.dto.outgoing.StockListItem;
 import com.example.stockmarketmonitor.dto.outgoing.StockPriceDetails;
 import com.example.stockmarketmonitor.service.StockService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -25,7 +26,7 @@ public class StockController {
     }
 
     @GetMapping
-    public ResponseEntity<List<StockDetails>> getAllListedStocks(){
+    public ResponseEntity<List<StockListItem>> getAllListedStocks(){
         return new ResponseEntity<>(stockService.getAllListedStocks(), HttpStatus.OK);
     }
 
@@ -41,7 +42,7 @@ public class StockController {
 
     @GetMapping("/last/{ticker}")
     public ResponseEntity<StockPriceDetails> getLastPrice(@PathVariable String ticker) {
-        StockPriceDetails priceDetails = new StockPriceDetails();
+        StockPriceDetails priceDetails = stockService.getLastStockPrice(ticker);
         return new ResponseEntity<>(priceDetails,HttpStatus.OK);
     }
 }
