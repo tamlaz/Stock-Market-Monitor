@@ -3,6 +3,7 @@ import {StockListModel} from 'src/app/models/stock-list-model';
 import { StockService } from 'src/app/services/stock.service';
 import {Router} from "@angular/router";
 import {StockPriceModel} from "../../models/stock-price-model";
+import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-stock-list',
@@ -10,6 +11,9 @@ import {StockPriceModel} from "../../models/stock-price-model";
   styleUrls: ['./stock-list.component.css']
 })
 export class StockListComponent {
+
+  arrowUp=faArrowUp;
+  arrowDown = faArrowDown;
 
   stocks: StockListModel[] = [];
   intervalId!:any;

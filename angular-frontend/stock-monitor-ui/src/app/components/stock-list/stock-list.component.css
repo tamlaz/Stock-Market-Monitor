@@ -34,12 +34,12 @@ img {
   max-width: 40%;
 }
 
-.green {
-  color: green;
+.fa-arrow-down, .red {
+  color:#e60f0f;
 }
 
-.red {
-  color: red;
+.fa-arrow-up, .green {
+  color: #07ab0a;
 }
 
 td span {

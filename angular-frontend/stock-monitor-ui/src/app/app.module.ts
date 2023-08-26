@@ -9,6 +9,7 @@ import { StockListComponent } from './components/stock-list/stock-list.component
 import { StockDetailsComponent } from './components/stock-details/stock-details.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

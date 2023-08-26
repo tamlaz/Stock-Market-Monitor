@@ -27,14 +27,14 @@
       </td>
       <td class="cell-container image-cell">
         <div [ngClass]="{'green': stock.stockPriceDetails.priceChange >= 0.00, 'red': stock.stockPriceDetails.priceChange < 0.00}">
-          <div class="image-wrapper" *ngIf="stock.stockPriceDetails.priceChange >= 0.00">
-            <img class="arrow"  src="assets/images/green.png" alt="green up arrow">
-          </div>
-          <div class="image-wrapper" *ngIf="stock.stockPriceDetails.priceChange < 0.00">
-            <img class="arrow"  src="assets/images/red-down.svg.png" alt="red down arrow">
-          </div>
+           <span>
+             <fa-icon *ngIf="stock.stockPriceDetails.priceChange >= 0.00" [icon]="arrowUp" class="fa-solid fa-arrow-up" ></fa-icon>
+           </span>
+          <span>
+          </span>
+            <fa-icon *ngIf="stock.stockPriceDetails.priceChange < 0.00" [icon]="arrowDown" class="fa-solid fa-arrow-down" ></fa-icon>
+          ({{setDecimalsToTwo(stock.stockPriceDetails.priceChangeInPercent)}}%)
           <span class="text">
-           ({{setDecimalsToTwo(stock.stockPriceDetails.priceChangeInPercent)}}%)
           </span>
         </div>
       </td>
