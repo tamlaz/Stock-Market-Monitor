@@ -2,6 +2,7 @@ package com.example.stockmarketmonitor.controller;
 
 import com.example.stockmarketmonitor.dto.incoming.CustomUserCommand;
 import com.example.stockmarketmonitor.dto.outgoing.ProfileDataDetails;
+import com.example.stockmarketmonitor.service.AuthenticationService;
 import com.example.stockmarketmonitor.service.CustomUserService;
 import com.example.stockmarketmonitor.service.JpaUserDetailsService;
 import com.example.stockmarketmonitor.validators.CustomUserCommandValidator;
@@ -19,14 +20,14 @@ import javax.validation.Valid;
 @RequestMapping("api/users")
 public class CustomUserController {
 
-    private JpaUserDetailsService jpaUserDetailsService;
+    private AuthenticationService authenticationService;
     private CustomUserService customUserService;
 
     private CustomUserCommandValidator userCommandValidator;
 
 
-    public CustomUserController(JpaUserDetailsService jpaUserDetailsService, CustomUserService customUserService, CustomUserCommandValidator userCommandValidator) {
-        this.jpaUserDetailsService = jpaUserDetailsService;
+    public CustomUserController(AuthenticationService authenticationService, CustomUserService customUserService, CustomUserCommandValidator userCommandValidator) {
+        this.authenticationService = authenticationService;
         this.customUserService = customUserService;
         this.userCommandValidator = userCommandValidator;
     }
@@ -39,7 +40,7 @@ public class CustomUserController {
     @PostMapping("/register")
     @PreAuthorize("isAnonymous()")
     public ResponseEntity<String> registerUser(@RequestBody @Valid CustomUserCommand customUserCommand) {
-        jpaUserDetailsService.register(customUserCommand);
+        authenticationService.register(customUserCommand);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -50,9 +51,17 @@ public class CustomUserController {
     }
 
     @GetMapping("/login")
+    @PreAuthorize("isAnonymous()")
     public ResponseEntity<Void> getTest() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(authentication);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/addToWatchList/{stockId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Void> addToWatchList(@PathVariable Long stockId) {
+        customUserService.addToWatchList(stockId, 1L);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
