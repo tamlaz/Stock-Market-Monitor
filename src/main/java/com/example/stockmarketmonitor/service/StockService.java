@@ -1,21 +1,27 @@
 package com.example.stockmarketmonitor.service;
 
 import com.example.stockmarketmonitor.domain.Stock;
+import com.example.stockmarketmonitor.dto.incoming.CommonStock;
+import com.example.stockmarketmonitor.dto.incoming.CommonStockResponse;
 import com.example.stockmarketmonitor.dto.incoming.StockDataCommand;
+import com.example.stockmarketmonitor.dto.outgoing.CommonStockListItem;
 import com.example.stockmarketmonitor.dto.outgoing.StockDetails;
 import com.example.stockmarketmonitor.dto.outgoing.StockListItem;
 import com.example.stockmarketmonitor.dto.outgoing.StockPriceDetails;
 import com.example.stockmarketmonitor.repository.StockRepository;
 import com.fasterxml.jackson.databind.JsonNode;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-import javax.persistence.EntityNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -95,5 +101,24 @@ public class StockService {
             stock.setStockPriceDetails(stockPriceDetails);
         }
         return stocks;
+    }
+
+    public List<CommonStockListItem> getAllCommonStocks() {
+        String url = String.format("https://api.polygon.io/v3/reference/tickers?type=CS&market=stocks&active=true&apiKey=%s", POLYGON_API_KEY);
+        ResponseEntity<JsonNode> commonStockResponse = restTemplate.getForEntity(url, JsonNode.class);
+        List<JsonNode> result = Collections.singletonList(commonStockResponse.getBody().get("results"));
+        List<CommonStockListItem> stocks = new ArrayList<>();
+        for (JsonNode jsonNode : result.get(0)) {
+            CommonStockListItem listItem = new CommonStockListItem(jsonNode);
+            stocks.add(listItem);
+        }
+        System.out.println(stocks);
+
+        return stocks;
+    }
+
+    public Stock findById(Long stockId) {
+        return stockRepository.findById(stockId)
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
