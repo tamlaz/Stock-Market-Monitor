@@ -1,5 +1,7 @@
 package com.example.stockmarketmonitor.controller;
 
+import com.example.stockmarketmonitor.dto.incoming.CommonStock;
+import com.example.stockmarketmonitor.dto.outgoing.CommonStockListItem;
 import com.example.stockmarketmonitor.dto.outgoing.StockDetails;
 import com.example.stockmarketmonitor.dto.outgoing.StockListItem;
 import com.example.stockmarketmonitor.dto.outgoing.StockPriceDetails;
@@ -44,5 +46,10 @@ public class StockController {
     public ResponseEntity<StockPriceDetails> getLastPrice(@PathVariable String ticker) {
         StockPriceDetails priceDetails = stockService.getLastStockPrice(ticker);
         return new ResponseEntity<>(priceDetails,HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<CommonStockListItem>> getAllStocks() {
+        return new ResponseEntity<>(stockService.getAllCommonStocks(), HttpStatus.OK);
     }
 }
