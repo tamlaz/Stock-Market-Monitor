@@ -1,11 +1,14 @@
 package com.example.stockmarketmonitor.domain;
 
 import com.example.stockmarketmonitor.config.UserRole;
+import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_table")
@@ -39,4 +42,11 @@ public class CustomUser {
 
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Stock> watchList = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(name = "wallet_id", referencedColumnName = "id")
+    private Wallet wallet;
 }

@@ -1,10 +1,9 @@
 package com.example.stockmarketmonitor.domain;
 
 import com.example.stockmarketmonitor.dto.incoming.StockDataCommand;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Entity
 @Table(name = "stocks")
@@ -32,6 +31,10 @@ public class Stock {
 
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private CustomUser user;
 
     public Stock(StockDataCommand dto) {
         this.ticker = dto.getTicker();
