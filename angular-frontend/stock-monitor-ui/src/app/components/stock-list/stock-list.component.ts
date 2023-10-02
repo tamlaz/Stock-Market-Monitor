@@ -47,7 +47,7 @@ export class StockListComponent {
     this.router.navigate(['stock-details', stockId]);
   }
 
-  setDecimalsToTwo(priceChange: number) {
+  setPriceChange(priceChange: number) {
     let result = priceChange.toFixed(2);
     if (priceChange > 0.00) {
       result = '+' + result;
@@ -66,5 +66,9 @@ export class StockListComponent {
       })
     }
 
+  }
+
+  setDecimalsToTwo(lastStockPrice: any) {
+    return lastStockPrice.toFixed(2);
   }
 }
