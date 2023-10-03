@@ -20,14 +20,12 @@ import javax.validation.Valid;
 @RequestMapping("api/users")
 public class CustomUserController {
 
-    private AuthenticationService authenticationService;
     private CustomUserService customUserService;
 
     private CustomUserCommandValidator userCommandValidator;
 
 
-    public CustomUserController(AuthenticationService authenticationService, CustomUserService customUserService, CustomUserCommandValidator userCommandValidator) {
-        this.authenticationService = authenticationService;
+    public CustomUserController(CustomUserService customUserService, CustomUserCommandValidator userCommandValidator) {
         this.customUserService = customUserService;
         this.userCommandValidator = userCommandValidator;
     }
@@ -37,12 +35,7 @@ public class CustomUserController {
         binder.addValidators(userCommandValidator);
     }
 
-    @PostMapping("/register")
-    @PreAuthorize("isAnonymous()")
-    public ResponseEntity<String> registerUser(@RequestBody @Valid CustomUserCommand customUserCommand) {
-        authenticationService.register(customUserCommand);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfileDataDetails> displayProfileData(@PathVariable ("id") Long id) {
