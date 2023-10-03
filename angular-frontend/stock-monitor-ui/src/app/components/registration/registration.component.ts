@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {UserAccountService} from "../../services/user-account.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {validationHandler} from "../utils/validation-handler";
+import {AuthenticationService} from "../../services/authentication.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +14,10 @@ export class RegistrationComponent {
 
   registrationForm: FormGroup;
 
-  constructor(private accountService: UserAccountService, private builder: FormBuilder) {
+  constructor(private authService: AuthenticationService,
+              private builder: FormBuilder,
+              private router: Router
+              ) {
     this.registrationForm = this.builder.group({
       email: ['', [
         Validators.required,
@@ -33,7 +38,7 @@ export class RegistrationComponent {
 
   register() {
     const data = {...this.registrationForm.value};
-    this.accountService.registerAccount(data).subscribe({
+    this.authService.registerAccount(data).subscribe({
       next: () => {},
       error: error => {
         validationHandler(error, this.registrationForm);
@@ -42,6 +47,7 @@ export class RegistrationComponent {
       complete: () => {
         this.registrationForm.reset();
         localStorage.setItem('auth', 'true');
+        this.router.navigate(['login'])
       }
     })
   }
