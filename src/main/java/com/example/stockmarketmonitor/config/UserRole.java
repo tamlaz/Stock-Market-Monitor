@@ -2,8 +2,8 @@ package com.example.stockmarketmonitor.config;
 
 public enum UserRole {
 
-    ROLE_USER("USER"),
-    ROLE_ADMIN("ADMIN");
+    USER("USER"),
+    ADMIN("ADMIN");
 
     private final String role;
 
