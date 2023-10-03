@@ -47,6 +47,6 @@ public class CustomUser {
     private Set<Stock> watchList = new HashSet<>();
 
     @OneToOne
-    @JoinColumn(name = "wallet_id", referencedColumnName = "id")
+    @JoinColumn(name = "wallet_id")
     private Wallet wallet;
 }
