@@ -3,25 +3,35 @@ package com.example.stockmarketmonitor.service;
 import com.example.stockmarketmonitor.config.UserRole;
 import com.example.stockmarketmonitor.domain.CustomUser;
 import com.example.stockmarketmonitor.dto.incoming.CustomUserCommand;
+import com.example.stockmarketmonitor.dto.incoming.LoginCommand;
+import com.example.stockmarketmonitor.dto.outgoing.LoginResponse;
 import com.example.stockmarketmonitor.repository.UserDetailsRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
 public class AuthenticationService {
 
-    private UserDetailsRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserDetailsRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private TokenService tokenService;
 
-    public AuthenticationService(UserDetailsRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthenticationService(UserDetailsRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenService tokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
     }
 
     public void register(CustomUserCommand customUserCommand) {
@@ -34,8 +44,17 @@ public class AuthenticationService {
             customUser.setFirstName(customUserCommand.getFirstName());
             customUser.setLastName(customUserCommand.getLastName());
             customUser.setCreatedAt(LocalDateTime.now());
-            customUser.setUserRoles(List.of("ROLE_USER").stream().map(UserRole::valueOf).collect(Collectors.toList()));
+            customUser.setUserRoles(Stream.of("USER").map(UserRole::valueOf).collect(Collectors.toList()));
             userRepository.save(customUser);
         }
+    }
+
+    public LoginResponse loginUser(LoginCommand loginCommand) {
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginCommand.getEmail(), loginCommand.getPassword())
+        );
+        CustomUser user = userRepository.findByEmail(loginCommand.getEmail())
+                .orElseThrow(EntityNotFoundException::new);
+        return new LoginResponse(tokenService.generateJwt(user));
     }
 }
