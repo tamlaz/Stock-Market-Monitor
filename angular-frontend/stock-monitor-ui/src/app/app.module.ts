@@ -11,6 +11,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import {ReactiveFormsModule} from "@angular/forms";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './components/login/login.component';
+import { StockFormComponent } from './components/stock-form/stock-form.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LoginComponent } from './components/login/login.component';
     StockListComponent,
     StockDetailsComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
+    StockFormComponent
   ],
   imports: [
     BrowserModule,

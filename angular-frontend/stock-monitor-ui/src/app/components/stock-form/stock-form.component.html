@@ -1,0 +1,15 @@
+<div class="container mt-3 mb-3">
+  <h3>Add stocks to be listed on this page</h3>
+  <h5>Due to API limitations you can add 3 stocks / min</h5>
+  <form [formGroup]="stockForm">
+    <label for="ticker" [ngClass]="{'text-danger': stockForm.get('ticker')?.invalid && stockForm.touched}">Enter the ticker</label>
+    <input type="text"
+           name="ticker"
+           id="ticker"
+           formControlName="ticker"
+           placeholder="AAPL"
+    [ngClass]="{'is-invalid':stockForm.get('ticker')?.invalid && stockForm.touched}">
+    <button type="submit" class="btn btn-success" (click)="addStock()" [disabled]="stockForm.invalid">Submit</button>
+  </form>
+  <div *ngIf="isStockAdded" class="text-success">Stock added successfully!</div>
+</div>
