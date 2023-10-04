@@ -13,7 +13,6 @@ const STOCK_BASE_URL = environment.STOCK_BASE_URL;
 })
 export class StockService {
 
-  tickerUpdate = new Subject<string>();
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +26,10 @@ export class StockService {
 
   getStockPriceData(ticker: string | undefined): Observable<StockPriceModel> {
     return this.http.get<StockPriceModel>(`${STOCK_BASE_URL}/last/${ticker}`);
+  }
+
+  addStock(ticker: string) {
+    return this.http.post(`${STOCK_BASE_URL}/${ticker}`,null);
   }
 
 
