@@ -11,6 +11,7 @@ export class StockFormComponent {
 
   stockForm: FormGroup;
   isStockAdded: boolean = false;
+  isErrorOccurred: boolean = false;
 
   constructor(private builder: FormBuilder,
               private stockService: StockService) {
@@ -27,7 +28,10 @@ export class StockFormComponent {
         this.stockForm.reset();
       },
       error: () => {
-
+        this.isErrorOccurred = true;
+        setTimeout(() => {
+          this.isErrorOccurred = false;
+        }, 5000);
       },
       complete: () => {
         this.isStockAdded = true;
