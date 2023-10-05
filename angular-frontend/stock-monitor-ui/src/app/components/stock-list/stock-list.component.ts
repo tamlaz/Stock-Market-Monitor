@@ -59,10 +59,7 @@ export class StockListComponent {
     for (let stock of this.stocks) {
       this.stockService.getStockPriceData(stock.ticker).subscribe({
         next: data => stock.stockPriceDetails = data,
-        error: err => console.log(err),
-        complete: () => {
-          console.log(stock.stockPriceDetails);
-        }
+        error: err => console.log(err)
       })
     }
 
