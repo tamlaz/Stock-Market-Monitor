@@ -26,7 +26,7 @@ export class LoginComponent {
   login() {
     this.authService.loginUser(this.loginForm.value).subscribe({
       next: data => {
-        localStorage.setItem('token', data.jwt);
+        localStorage.setItem('token', data.jwt as string);
       },
       error: err => {
         validationHandler(err, this.loginForm);
@@ -34,6 +34,7 @@ export class LoginComponent {
       },
       complete: () => {
         this.loginForm.reset();
+        this.authService.authStatus.next(localStorage.getItem('token'));
         this.router.navigate(['stock-list'])
       }
     });

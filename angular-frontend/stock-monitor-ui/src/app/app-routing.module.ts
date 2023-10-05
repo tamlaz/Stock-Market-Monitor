@@ -5,10 +5,15 @@ import {StockDetailsComponent} from "./components/stock-details/stock-details.co
 import {RegistrationComponent} from "./components/registration/registration.component";
 import {LoginComponent} from "./components/login/login.component";
 import {StockFormComponent} from "./components/stock-form/stock-form.component";
+import {auth} from "./guards/auth-guard";
+import {HasRoleGuard} from "./guards/has-role-guard";
 
 const routes: Routes = [
   {path: 'stock-list', component: StockListComponent},
-  {path: 'stock-form', component: StockFormComponent},
+  {path: 'stock-form', component: StockFormComponent, canActivate: [() => auth(), HasRoleGuard],
+  data: {
+    expectedRoles: ['ADMIN']
+  }},
   {path: 'stock-details/:id', component: StockDetailsComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
