@@ -1,8 +1,6 @@
 package com.example.stockmarketmonitor.service;
 
 import com.example.stockmarketmonitor.domain.Stock;
-import com.example.stockmarketmonitor.dto.incoming.CommonStock;
-import com.example.stockmarketmonitor.dto.incoming.CommonStockResponse;
 import com.example.stockmarketmonitor.dto.incoming.StockDataCommand;
 import com.example.stockmarketmonitor.dto.outgoing.CommonStockListItem;
 import com.example.stockmarketmonitor.dto.outgoing.StockDetails;
@@ -17,13 +15,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @Transactional
@@ -95,11 +92,14 @@ public class StockService {
         List<StockListItem> stocks = stockRepository.getAllStocks()
                 .stream()
                 .map(StockListItem::new)
-                .collect(Collectors.toList());
-        for (StockListItem stock : stocks) {
-            StockPriceDetails stockPriceDetails = getLastStockPrice(stock.getTicker());
-            stock.setStockPriceDetails(stockPriceDetails);
-        }
+                .toList();
+
+        List<CompletableFuture<Void>> futures = stocks.stream()
+                .map(stock -> (CompletableFuture.supplyAsync(() -> getLastStockPrice(stock.getTicker()))
+                        .thenAccept(stock::setStockPriceDetails)))
+                .toList();
+
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         return stocks;
     }
 
