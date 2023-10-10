@@ -72,6 +72,11 @@ td {
     max-width: 25%;
   }
 
+  tr:hover {
+    cursor: pointer;
+    opacity: 0.7;
+  }
+
 
 }
 
@@ -87,8 +92,5 @@ td {
   }
   table td:nth-of-type(1), table th:nth-of-type(1){
     display: table-cell;
-  }
-  img {
-    max: 50%;
   }
 }
