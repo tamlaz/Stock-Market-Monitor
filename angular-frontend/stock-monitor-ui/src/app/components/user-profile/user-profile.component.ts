@@ -13,7 +13,7 @@ export class UserProfileComponent {
   chosenSection: string = '';
 
   constructor(private userService: UserAccountService) {
-
+    this.ngOnInit();
   }
 
   ngOnInit() {
@@ -31,10 +31,10 @@ export class UserProfileComponent {
   }
 
   chooseWatchList() {
-    this.chosenSection = 'watchlist'
+    this.chosenSection = 'watchlist';
   }
 
   choosePortfolio() {
-    this.chosenSection = 'portfolio'
+    this.chosenSection = 'portfolio';
   }
 }
