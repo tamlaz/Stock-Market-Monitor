@@ -1,4 +1,4 @@
-# Stock-Market-Analyzer
+# Stock-Market-Monitor
 
 The project aims to monitor and analyze stocks listed on major US-based stock exchanges. Users can engage in simulated trading without risking real money and gather insights about the tickers they are interested in. The application provides a seamless and user-friendly experience through the use of Bootstrap and custom CSS.
 
