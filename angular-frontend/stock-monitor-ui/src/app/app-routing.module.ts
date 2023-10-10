@@ -7,6 +7,7 @@ import {LoginComponent} from "./components/login/login.component";
 import {StockFormComponent} from "./components/stock-form/stock-form.component";
 import {auth} from "./guards/auth-guard";
 import {HasRoleGuard} from "./guards/has-role-guard";
+import {UserProfileComponent} from "./components/user-profile/user-profile.component";
 
 const routes: Routes = [
   {path: 'stock-list', component: StockListComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: 'stock-details/:id', component: StockDetailsComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'user-profile', component: UserProfileComponent},
   {path: '**', redirectTo: '/stock-list'}
 ];
 
