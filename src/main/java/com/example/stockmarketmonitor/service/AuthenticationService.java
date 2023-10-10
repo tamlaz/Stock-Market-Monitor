@@ -10,7 +10,9 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,5 +58,12 @@ public class AuthenticationService {
         CustomUser user = userRepository.findByEmail(loginCommand.getEmail())
                 .orElseThrow(EntityNotFoundException::new);
         return new LoginResponse(tokenService.generateJwt(user));
+    }
+
+    public CustomUser authenticate() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Jwt token = (Jwt) auth.getPrincipal();
+        return userRepository.findByEmail((String) token.getClaims().get("iss"))
+                .orElseThrow(EntityNotFoundException::new);
     }
 }
