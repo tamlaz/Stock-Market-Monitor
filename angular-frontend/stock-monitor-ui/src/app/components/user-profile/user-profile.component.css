@@ -1,0 +1,22 @@
+* {
+  border: 1px solid black;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item:hover {
+  cursor: pointer;
+  scale: 1.05;
+  opacity: 0.9;
+}
