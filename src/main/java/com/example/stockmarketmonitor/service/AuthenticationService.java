@@ -63,7 +63,7 @@ public class AuthenticationService {
     public CustomUser authenticate() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Jwt token = (Jwt) auth.getPrincipal();
-        return userRepository.findByEmail((String) token.getClaims().get("iss"))
+        return userRepository.findByEmail((String) token.getClaims().get("sub"))
                 .orElseThrow(EntityNotFoundException::new);
     }
 }
