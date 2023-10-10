@@ -13,6 +13,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LoginComponent } from './components/login/login.component';
 import { StockFormComponent } from './components/stock-form/stock-form.component';
 import {AuthInterceptor} from "./services/authInterceptor";
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {AuthInterceptor} from "./services/authInterceptor";
     StockDetailsComponent,
     RegistrationComponent,
     LoginComponent,
-    StockFormComponent
+    StockFormComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
