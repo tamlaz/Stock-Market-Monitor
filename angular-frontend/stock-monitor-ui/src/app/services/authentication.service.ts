@@ -7,6 +7,7 @@ import {environment} from "../../environments/environment.development";
 import {LoginResponseModel} from "../models/login-response-model";
 import jwt_decode from "jwt-decode";
 import {DecodedToken} from "../models/decoded-token";
+import {TokenValidationResponseModel} from "../models/token-validation-response-model";
 
 const AUTH_BASE_URL = environment.AUTH_BASE_URL;
 
@@ -34,6 +35,10 @@ export class AuthenticationService {
   validateTokenInLStorage() {
     const token = localStorage.getItem('token');
     return (token);
+  }
+
+  validateTokenInServer(): Observable<TokenValidationResponseModel> {
+    return this.http.get<TokenValidationResponseModel>(`${AUTH_BASE_URL}/validate-token`);
   }
 
   getDecodedToken(token:string): DecodedToken | null {
