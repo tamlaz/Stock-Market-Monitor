@@ -13,7 +13,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let stock of stocks">
+    <tr *ngFor="let stock of stocks" (click)="sendData(stock.id)">
 
       <td class="icon cell-container">
           <img [src]="stock.iconUrl" alt="icon">
@@ -28,11 +28,11 @@
       <td class="cell-container image-cell">
         <div [ngClass]="{'green': stock.stockPriceDetails.priceChange >= 0.00, 'red': stock.stockPriceDetails.priceChange < 0.00}">
            <span>
-             <fa-icon *ngIf="stock.stockPriceDetails.priceChange >= 0.00" [icon]="arrowUp" class="fa-solid fa-arrow-up" ></fa-icon>
+             <i *ngIf="stock.stockPriceDetails.priceChange >= 0.00" class="fa-solid fa-arrow-up" ></i>
            </span>
           <span>
           </span>
-            <fa-icon *ngIf="stock.stockPriceDetails.priceChange < 0.00" [icon]="arrowDown" class="fa-solid fa-arrow-down" ></fa-icon>
+          <i *ngIf="stock.stockPriceDetails.priceChange < 0.00" class="fa-solid fa-arrow-down"></i>
           ({{setPriceChange(stock.stockPriceDetails.priceChangeInPercent)}}%)
           <span class="text">
           </span>
@@ -40,7 +40,9 @@
       </td>
       <td class="cell-container">{{stock.stockPriceDetails.previousClosePrice}}</td>
       <td class="cell-container">
-        <button type="button" class="btn btn-dark" (click)="sendData(stock.id)">Details</button>
+        <button type="button" class="btn btn-outline-dark">
+          <i class="fa-solid fa-eye"></i>
+        </button>
       </td>
 
     </tr>
