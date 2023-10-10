@@ -1,20 +1,13 @@
 package com.example.stockmarketmonitor.controller;
 
-import com.example.stockmarketmonitor.dto.incoming.CustomUserCommand;
-import com.example.stockmarketmonitor.dto.outgoing.ProfileDataDetails;
-import com.example.stockmarketmonitor.service.AuthenticationService;
+import com.example.stockmarketmonitor.dto.outgoing.CustomUserDetails;
 import com.example.stockmarketmonitor.service.CustomUserService;
-import com.example.stockmarketmonitor.service.JpaUserDetailsService;
 import com.example.stockmarketmonitor.validators.CustomUserCommandValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/users")
@@ -35,20 +28,11 @@ public class CustomUserController {
         binder.addValidators(userCommandValidator);
     }
 
-
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ProfileDataDetails> displayProfileData(@PathVariable ("id") Long id) {
-        ProfileDataDetails details = customUserService.getProfileDataDetails(id);
+    @GetMapping()
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<CustomUserDetails> displayProfileData() {
+        CustomUserDetails details = customUserService.getProfileDataDetails();
         return new ResponseEntity<>(details,HttpStatus.OK);
-    }
-
-    @GetMapping("/login")
-    @PreAuthorize("isAnonymous()")
-    public ResponseEntity<Void> getTest() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println(authentication);
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/addToWatchList/{stockId}")

@@ -2,13 +2,10 @@ package com.example.stockmarketmonitor.service;
 
 import com.example.stockmarketmonitor.domain.CustomUser;
 import com.example.stockmarketmonitor.domain.Stock;
-import com.example.stockmarketmonitor.dto.outgoing.ProfileDataDetails;
+import com.example.stockmarketmonitor.dto.outgoing.CustomUserDetails;
 import com.example.stockmarketmonitor.repository.CustomUserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,24 +15,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CustomUserService {
 
-    private CustomUserRepository customUserRepository;
-    private StockService stockService;
+    private final CustomUserRepository customUserRepository;
+    private final StockService stockService;
+
+    private final AuthenticationService authService;
 
     @Autowired
-    public CustomUserService(CustomUserRepository customUserRepository, StockService stockService) {
+    public CustomUserService(CustomUserRepository customUserRepository, StockService stockService, AuthenticationService authService) {
         this.customUserRepository = customUserRepository;
         this.stockService = stockService;
+        this.authService = authService;
     }
 
 
-    public ProfileDataDetails getProfileDataDetails(Long id) throws IllegalCallerException{
-        CustomUser user = customUserRepository.findById(id).orElseThrow(EntityNotFoundException::new);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails loggedInUser = (UserDetails) authentication.getPrincipal();
-        if (!loggedInUser.getUsername().equals(user.getEmail())) {
-            throw new IllegalCallerException();
-        }
-        return new ProfileDataDetails(user);
+    public CustomUserDetails getProfileDataDetails() throws IllegalCallerException{
+        CustomUser loggedInUser = authService.authenticate();
+        return new CustomUserDetails(loggedInUser);
     }
 
     public void addToWatchList(Long stockId, Long userId) {
