@@ -15,7 +15,7 @@
           <p>Last Name</p>
           <div>{{userProFileDetails.lastName}}</div>
         </div>
-        <div class="profile-section">
+        <div class="profile-section" *ngSwitchCase="'balance'">
           <p>Invested balance</p>
           <p>Free Balance</p>
         </div>
