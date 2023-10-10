@@ -1,0 +1,24 @@
+<div class="container mt-3 mb-3 min-vh-100">
+    <div class="profile-container">
+      <div class="menu-bar">
+        <div class="menu-item" (click)="chooseDefault()">Personal Info</div>
+        <div class="menu-item" (click)="chooseBalance()">Balance</div>
+        <div class="menu-item" (click)="chooseWatchList()">WatchList</div>
+        <div class="menu-item" (click)="choosePortfolio()">Portfolio</div>
+      </div>
+      <div class="card-body p-3" [ngSwitch]="chosenSection">
+        <div class="profile-section " *ngSwitchDefault>
+          <p>Email</p>
+          <div>{{userProFileDetails.email}}</div>
+          <p>First Name</p>
+          <div>{{userProFileDetails.firstName}}</div>
+          <p>Last Name</p>
+          <div>{{userProFileDetails.lastName}}</div>
+        </div>
+        <div class="profile-section">
+          <p>Invested balance</p>
+          <p>Free Balance</p>
+        </div>
+      </div>
+    </div>
+</div>
