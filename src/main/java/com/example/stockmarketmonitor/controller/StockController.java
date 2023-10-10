@@ -48,9 +48,4 @@ public class StockController {
         StockPriceDetails priceDetails = stockService.getLastStockPrice(ticker);
         return new ResponseEntity<>(priceDetails,HttpStatus.OK);
     }
-
-    @GetMapping("/all")
-    public ResponseEntity<List<CommonStockListItem>> getAllStocks() {
-        return new ResponseEntity<>(stockService.getAllCommonStocks(), HttpStatus.OK);
-    }
 }

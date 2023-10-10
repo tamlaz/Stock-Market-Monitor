@@ -103,20 +103,6 @@ public class StockService {
         return stocks;
     }
 
-    public List<CommonStockListItem> getAllCommonStocks() {
-        String url = String.format("https://api.polygon.io/v3/reference/tickers?type=CS&market=stocks&active=true&apiKey=%s", POLYGON_API_KEY);
-        ResponseEntity<JsonNode> commonStockResponse = restTemplate.getForEntity(url, JsonNode.class);
-        List<JsonNode> result = Collections.singletonList(commonStockResponse.getBody().get("results"));
-        List<CommonStockListItem> stocks = new ArrayList<>();
-        for (JsonNode jsonNode : result.get(0)) {
-            CommonStockListItem listItem = new CommonStockListItem(jsonNode);
-            stocks.add(listItem);
-        }
-        System.out.println(stocks);
-
-        return stocks;
-    }
-
     public Stock findById(Long stockId) {
         return stockRepository.findById(stockId)
                 .orElseThrow(EntityNotFoundException::new);
