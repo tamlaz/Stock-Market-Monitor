@@ -34,8 +34,7 @@ public class CustomUserService {
     }
 
     public void addToWatchList(Long stockId, Long userId) {
-        CustomUser user = customUserRepository.findById(userId)
-                .orElseThrow(EntityNotFoundException::new);
+        CustomUser user = authService.authenticate();
         Stock stock = stockService.findById(stockId);
         user.getWatchList().add(stock);
     }
