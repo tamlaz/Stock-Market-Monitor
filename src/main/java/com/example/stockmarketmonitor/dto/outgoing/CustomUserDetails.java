@@ -5,8 +5,7 @@ import com.example.stockmarketmonitor.domain.CustomUser;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,13 +13,14 @@ public class CustomUserDetails {
     private String firstName;
     private String lastName;
     private String email;
-    private Set<StockListItem> watchList;
+    private List<Long> watchList;
 
     public CustomUserDetails(CustomUser customUser) {
         this.firstName = customUser.getFirstName();
         this.lastName = customUser.getLastName();
         this.email = customUser.getEmail();
-        this.watchList = customUser.getWatchList().stream()
-                .map(StockListItem::new).collect(Collectors.toSet());
+        System.out.println(customUser.getWatchList());
+        this.watchList = List.copyOf(customUser.getWatchList());
+        System.out.println(this.watchList);
     }
 }

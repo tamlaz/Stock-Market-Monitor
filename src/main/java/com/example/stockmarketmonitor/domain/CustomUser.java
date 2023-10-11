@@ -43,8 +43,9 @@ public class CustomUser {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Stock> watchList = new HashSet<>();
+
+    @ElementCollection
+    private Set<Long> watchList = new HashSet<>();
 
     @OneToOne
     @JoinColumn(name = "wallet_id")
