@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {StockListModel} from "../../models/stock-list-model";
 import {StockService} from "../../services/stock.service";
 import {ActivatedRoute} from "@angular/router";
 import {StockPriceModel} from "../../models/stock-price-model";
@@ -54,10 +53,6 @@ export class StockDetailsComponent {
   }
 
   toggleDescVisibility() {
-    if (this.isCompanyDescVisible) {
-      this.isCompanyDescVisible = false;
-    } else {
-      this.isCompanyDescVisible = true;
-    }
+    this.isCompanyDescVisible = !this.isCompanyDescVisible;
   }
 }
