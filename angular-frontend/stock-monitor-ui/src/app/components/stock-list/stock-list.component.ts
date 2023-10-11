@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import {StockListModel} from 'src/app/models/stock-list-model';
-import { StockService } from 'src/app/services/stock.service';
+
+
 import {Router} from "@angular/router";
-import {StockPriceModel} from "../../models/stock-price-model";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
+import {UserAccountService} from "../../services/user-account.service";
+import {StockListItemModel} from "../../models/stock-list-item-model";
+import {StockService} from "../../services/stock.service";
 
 @Component({
   selector: 'app-stock-list',
@@ -15,10 +17,12 @@ export class StockListComponent {
   arrowUp=faArrowUp;
   arrowDown = faArrowDown;
 
-  stocks: StockListModel[] = [];
+  stocks: StockListItemModel[] = [];
   intervalId!:any;
 
-  constructor(private stockService: StockService, private router: Router) {
+  constructor(private stockService: StockService,
+              private router: Router,
+              private userService: UserAccountService) {
 
   }
 
@@ -67,5 +71,16 @@ export class StockListComponent {
 
   setDecimalsToTwo(lastStockPrice: any) {
     return lastStockPrice.toFixed(2);
+  }
+
+  addToWatchList(stockId: number) {
+    this.userService.addToWatchList(stockId).subscribe({
+      error: err => {
+        console.log(err);
+      },
+      complete: () => {
+        console.log('Success');
+      }
+    })
   }
 }

@@ -20,6 +20,7 @@ export class UserAccountService {
   }
 
 
-
-
+  addToWatchList(stockId: number) {
+    return this.http.put(`${USER_BASE_URL}/addToWatchList/${stockId}`, null);
+  }
 }

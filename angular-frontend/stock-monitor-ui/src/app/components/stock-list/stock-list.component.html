@@ -40,7 +40,7 @@
       </td>
       <td class="cell-container">{{stock.stockPriceDetails.previousClosePrice}}</td>
       <td class="cell-container">
-        <button type="button" class="btn btn-outline-dark">
+        <button type="button" class="btn btn-outline-dark" (click)="addToWatchList(stock.id)">
           <i class="fa-solid fa-eye"></i>
         </button>
       </td>
