@@ -32,9 +32,7 @@ public class Stock {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne()
-    @JoinColumn(name = "user_id")
-    private CustomUser user;
+
 
     public Stock(StockDataCommand dto) {
         this.ticker = dto.getTicker();
