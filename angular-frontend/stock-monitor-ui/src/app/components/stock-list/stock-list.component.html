@@ -13,12 +13,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let stock of stocks" (click)="sendData(stock.id)">
+    <tr *ngFor="let stock of stocks">
 
       <td class="icon cell-container">
           <img [src]="stock.iconUrl" alt="icon">
       </td>
-      <td class="cell-container">
+      <td class="cell-container" (click)="sendData(stock.id)">
 
         {{stock.ticker}}</td>
       <td class="cell-container" >{{setDecimalsToTwo(stock.stockPriceDetails.lastStockPrice)}}$</td>
@@ -40,7 +40,10 @@
       </td>
       <td class="cell-container">{{stock.stockPriceDetails.previousClosePrice}}</td>
       <td class="cell-container">
-        <button type="button" class="btn btn-outline-dark" (click)="addToWatchList(stock.id)">
+        <button type="button" class="btn" [ngClass]="{
+        'part-of-watchlist': checkIfStockPartOfWatchList(stock.id),
+        'not-part-of-watchlist': !(checkIfStockPartOfWatchList(stock.id))}"
+                (click)="handleWatchList(stock.id)">
           <i class="fa-solid fa-eye"></i>
         </button>
       </td>
