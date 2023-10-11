@@ -2,7 +2,6 @@ package com.example.stockmarketmonitor.service;
 
 import com.example.stockmarketmonitor.domain.Stock;
 import com.example.stockmarketmonitor.dto.incoming.StockDataCommand;
-import com.example.stockmarketmonitor.dto.outgoing.CommonStockListItem;
 import com.example.stockmarketmonitor.dto.outgoing.StockDetails;
 import com.example.stockmarketmonitor.dto.outgoing.StockListItem;
 import com.example.stockmarketmonitor.dto.outgoing.StockPriceDetails;
@@ -17,8 +16,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 

@@ -19,8 +19,6 @@ public class CustomUserDetails {
         this.firstName = customUser.getFirstName();
         this.lastName = customUser.getLastName();
         this.email = customUser.getEmail();
-        System.out.println(customUser.getWatchList());
         this.watchList = List.copyOf(customUser.getWatchList());
-        System.out.println(this.watchList);
     }
 }
