@@ -36,6 +36,12 @@ public class CustomUserService {
     public void addToWatchList(Long stockId, Long userId) {
         CustomUser user = authService.authenticate();
         Stock stock = stockService.findById(stockId);
-        user.getWatchList().add(stock);
+        user.getWatchList().add(stock.getId());
+    }
+
+    public void removeFromWatchList(Long stockId, long l) {
+        CustomUser user = authService.authenticate();
+        Stock stock = stockService.findById(stockId);
+        user.getWatchList().remove(stock.getId());
     }
 }
