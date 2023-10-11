@@ -27,6 +27,8 @@ export class LoginComponent {
     this.authService.loginUser(this.loginForm.value).subscribe({
       next: data => {
         localStorage.setItem('token', data.jwt as string);
+        const decodedToken = this.authService.getDecodedToken(localStorage.getItem('token'));
+        sessionStorage.setItem('user', decodedToken.sub);
       },
       error: err => {
         validationHandler(err, this.loginForm);
