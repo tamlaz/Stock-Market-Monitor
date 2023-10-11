@@ -39,6 +39,15 @@ public class CustomUserController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Void> addToWatchList(@PathVariable Long stockId) {
         customUserService.addToWatchList(stockId, 1L);
+        System.out.println(stockId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/removeFromWatchList/{stockId}")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Void> removeFromWatchList(@PathVariable Long stockId) {
+        customUserService.removeFromWatchList(stockId, 1L);
+        System.out.println(stockId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
