@@ -14,11 +14,10 @@ import {StockService} from "../../services/stock.service";
 })
 export class StockListComponent {
 
-  arrowUp=faArrowUp;
-  arrowDown = faArrowDown;
-
   stocks: StockListItemModel[] = [];
   intervalId!:any;
+  currentUsersWatchList: number[] = [];
+
 
   constructor(private stockService: StockService,
               private router: Router,
@@ -36,6 +35,7 @@ export class StockListComponent {
         this.intervalId = setInterval(() => this.getLastStockPrice(), 60000);
       }
     })
+    this.reLoadWatchList();
   }
   ngOnDestroy() {
     if (this.intervalId) {
@@ -73,14 +73,49 @@ export class StockListComponent {
     return lastStockPrice.toFixed(2);
   }
 
+  handleWatchList(stockId: number) {
+    if (this.checkIfStockPartOfWatchList(stockId)) {
+      this.removeFromWatchList(stockId);
+    } else {
+      this.addToWatchList(stockId);
+    }
+  }
+
+  removeFromWatchList(stockId: number) {
+    this.userService.removeFromWatchList(stockId).subscribe({
+      error: err => {
+        console.log(err);
+      },
+      complete: () => {
+        this.reLoadWatchList();
+      }
+    })
+  }
+
   addToWatchList(stockId: number) {
     this.userService.addToWatchList(stockId).subscribe({
       error: err => {
         console.log(err);
       },
       complete: () => {
-        console.log('Success');
+        this.reLoadWatchList();
       }
     })
+  }
+
+  reLoadWatchList() {
+    if (sessionStorage.getItem('user')) {
+      this.userService.getUserProfileDetails().subscribe({
+        next: data => this.currentUsersWatchList = data.watchList,
+        complete: () => console.log(this.currentUsersWatchList)
+      })
+    }
+  }
+
+  checkIfStockPartOfWatchList(id:number) {
+    if (this.currentUsersWatchList.length === 0) {
+      return false;
+    }
+    return this.currentUsersWatchList.includes(id);
   }
 }
