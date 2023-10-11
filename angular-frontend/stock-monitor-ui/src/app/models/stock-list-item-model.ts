@@ -1,6 +1,6 @@
 import {StockPriceModel} from "./stock-price-model";
 
-export interface StockListModel {
+export interface StockListItemModel {
   id?: number,
   ticker: string,
   iconUrl: string,

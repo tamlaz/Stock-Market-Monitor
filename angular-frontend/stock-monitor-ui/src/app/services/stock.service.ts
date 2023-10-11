@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {StockListModel} from '../models/stock-list-model';
+import {StockListItemModel} from '../models/stock-list-item-model';
 import {StockPriceModel} from "../models/stock-price-model";
 import {Observable, Subject} from "rxjs";
 import {StockDetailsModel} from "../models/stock-details-model";
@@ -16,8 +16,8 @@ export class StockService {
 
   constructor(private http: HttpClient) { }
 
-  getListedStocks(): Observable<StockListModel[]> {
-    return this.http.get<StockListModel[]>(STOCK_BASE_URL);
+  getListedStocks(): Observable<StockListItemModel[]> {
+    return this.http.get<StockListItemModel[]>(STOCK_BASE_URL);
   }
 
   getStockData(id: number | undefined): Observable<StockDetailsModel> {
