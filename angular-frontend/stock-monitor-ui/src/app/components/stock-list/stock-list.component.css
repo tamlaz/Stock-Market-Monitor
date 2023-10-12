@@ -56,11 +56,10 @@ td {
 
 .part-of-watchlist {
   background-color: #2c9f2d;
-  border: #2c9f2d;
 }
 
 .not-part-of-watchlist {
-  background-color: #88898b;
+  background-color: transparent;
   border: #88898b;
 }
 
