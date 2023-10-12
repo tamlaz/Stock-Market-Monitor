@@ -46,7 +46,6 @@ export class RegistrationComponent {
       },
       complete: () => {
         this.registrationForm.reset();
-        localStorage.setItem('auth', 'true');
         this.router.navigate(['login'])
       }
     })
