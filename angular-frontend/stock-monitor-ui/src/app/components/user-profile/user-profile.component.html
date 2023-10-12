@@ -1,4 +1,7 @@
 <div class="container mt-3 mb-3 min-vh-100">
+  <div class="greeting">
+    <h3>Hey, {{userProFileDetails.firstName}}</h3>
+  </div>
     <div class="profile-container">
       <div class="menu-bar">
         <div class="menu-item" (click)="chooseDefault()">Personal Info</div>
@@ -8,16 +11,28 @@
       </div>
       <div class="card-body p-3" [ngSwitch]="chosenSection">
         <div class="profile-section " *ngSwitchDefault>
-          <p>Email</p>
-          <div>{{userProFileDetails.email}}</div>
-          <p>First Name</p>
-          <div>{{userProFileDetails.firstName}}</div>
-          <p>Last Name</p>
-          <div>{{userProFileDetails.lastName}}</div>
+          <div>
+            <h5>Email</h5>
+            <div>{{userProFileDetails.email}}</div>
+          </div>
+          <div>
+            <h5>First Name</h5>
+            <div>{{userProFileDetails.firstName}}</div>
+          </div>
+          <div>
+            <h5>Last Name</h5>
+            <div>{{userProFileDetails.lastName}}</div>
+          </div>
         </div>
         <div class="profile-section" *ngSwitchCase="'balance'">
-          <p>Invested balance</p>
-          <p>Free Balance</p>
+          <div>
+            <h5>Invested balance:</h5>
+            <div>{{userProFileDetails.balance}}</div>
+          </div>
+          <div>
+            <h5>Profit / Loss</h5>
+            <div>{{1000 - userProFileDetails.balance}}</div>
+          </div>
         </div>
       </div>
     </div>
