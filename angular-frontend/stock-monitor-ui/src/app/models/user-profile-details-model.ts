@@ -5,4 +5,5 @@ export interface UserProfileDetailsModel {
   lastName:string;
   email:string;
   watchList: number[];
+  balance: number;
 }

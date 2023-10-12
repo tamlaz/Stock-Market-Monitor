@@ -14,11 +14,13 @@ public class CustomUserDetails {
     private String lastName;
     private String email;
     private List<Long> watchList;
+    private Double balance;
 
     public CustomUserDetails(CustomUser customUser) {
         this.firstName = customUser.getFirstName();
         this.lastName = customUser.getLastName();
         this.email = customUser.getEmail();
         this.watchList = List.copyOf(customUser.getWatchList());
+        this.balance = customUser.getWallet().getBalance();
     }
 }
