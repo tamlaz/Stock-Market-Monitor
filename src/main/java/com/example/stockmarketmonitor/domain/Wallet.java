@@ -1,8 +1,12 @@
 package com.example.stockmarketmonitor.domain;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Wallet {
 
     @Id
@@ -15,4 +19,9 @@ public class Wallet {
 
     @OneToOne(mappedBy = "wallet")
     private CustomUser user;
+
+    public Wallet(Double balance, CustomUser user) {
+        this.balance = balance;
+        this.user = user;
+    }
 }
