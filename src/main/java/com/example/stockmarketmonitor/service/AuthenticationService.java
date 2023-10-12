@@ -2,6 +2,7 @@ package com.example.stockmarketmonitor.service;
 
 import com.example.stockmarketmonitor.config.UserRole;
 import com.example.stockmarketmonitor.domain.CustomUser;
+import com.example.stockmarketmonitor.domain.Wallet;
 import com.example.stockmarketmonitor.dto.incoming.CustomUserCommand;
 import com.example.stockmarketmonitor.dto.incoming.LoginCommand;
 import com.example.stockmarketmonitor.dto.outgoing.LoginResponse;
@@ -29,11 +30,14 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private TokenService tokenService;
 
-    public AuthenticationService(UserDetailsRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenService tokenService) {
+    private final  WalletService walletService;
+
+    public AuthenticationService(UserDetailsRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, TokenService tokenService, WalletService walletService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
+        this.walletService = walletService;
     }
 
     public void register(CustomUserCommand customUserCommand) {
@@ -48,11 +52,13 @@ public class AuthenticationService {
             customUser.setCreatedAt(LocalDateTime.now());
             customUser.setUserRoles(Stream.of("USER").map(UserRole::valueOf).collect(Collectors.toList()));
             userRepository.save(customUser);
+            Wallet wallet = walletService.createWallet(customUser);
+            customUser.setWallet(wallet);
         }
     }
 
     public LoginResponse loginUser(LoginCommand loginCommand) {
-        Authentication auth = authenticationManager.authenticate(
+        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginCommand.getEmail(), loginCommand.getPassword())
         );
         CustomUser user = userRepository.findByEmail(loginCommand.getEmail())
