@@ -10,14 +10,15 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-    show-sql: on
+    show-sql: false
 
 
 logging:
   level:
-    hu.progmasters: info
-    org.springframework.web: info
+    com.example.stockmarketmonitor: error
+    org.springframework.web: error
     org.hibernate: error
+    org.springframework.security: error
   pattern:
     console: "%cyan(%d{yyyy-MM-dd HH:mm:ss}) [%green(%thread)] %highlight(%-5level) %yellow(%logger{36}) - %msg%n"
 
@@ -30,3 +31,11 @@ finnhubapikey: "cj1bjh9r01qhv0uhmnf0cj1bjh9r01qhv0uhmnfg"
 polygonapikey: "bHLKcB4JTWbBZLpiv3r7_8vHjYlKmXE6"
 
 cors-policies: http://localhost:4200, http://127.0.0.1:4200,
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui
+
+
