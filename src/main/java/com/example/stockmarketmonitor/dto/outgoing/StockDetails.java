@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StockDetails {
 
+    private Long id;
     private String ticker;
     private String name;
     private String logoUrl;
@@ -17,6 +18,7 @@ public class StockDetails {
     private StockPriceDetails stockPriceDetails;
 
     public StockDetails(Stock stock) {
+        this.id = stock.getId();
         this.ticker = stock.getTicker();
         this.name = stock.getName();
         this.logoUrl = stock.getLogoUrl();
