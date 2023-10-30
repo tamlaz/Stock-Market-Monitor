@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {DecodedToken} from "./models/decoded-token";
-import {AuthenticationService} from "./services/authentication.service";
+import {AuthenticationService} from "./services/authentication-service";
 import jwt_decode from "jwt-decode";
 
 @Component({
