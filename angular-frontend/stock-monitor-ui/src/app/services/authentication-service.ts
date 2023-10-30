@@ -48,4 +48,10 @@ export class AuthenticationService {
       return null;
     }
   }
+
+  logOut() {
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('username');
+    this.http.get(`${AUTH_BASE_URL}/logout`);
+  }
 }

@@ -10,7 +10,7 @@ const USER_BASE_URL = environment.USER_BASE_URL;
 @Injectable({
   providedIn: 'root'
 })
-export class UserAccountService {
+export class UserService {
 
   constructor(private http: HttpClient) { }
 
