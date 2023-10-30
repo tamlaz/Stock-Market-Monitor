@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {StockService} from "../../services/stock.service";
+import {StockService} from "../../services/stock-service";
 import {ActivatedRoute} from "@angular/router";
 import {StockPriceModel} from "../../models/stock-price-model";
 import {StockDetailsModel} from "../../models/stock-details-model";
@@ -17,7 +17,6 @@ export class StockDetailsComponent {
   stock!: StockDetailsModel;
   stockPrice!: StockPriceModel;
   intervalId!:any;
-  isCompanyDescVisible = false;
 
 
   constructor(private stockService: StockService, private activatedRoute: ActivatedRoute) {
@@ -28,7 +27,10 @@ export class StockDetailsComponent {
 
   ngOnInit(){
       this.stockService.getStockData(this.stockId).subscribe({
-        next: data => this.stock = data,
+        next: data => {
+          this.stock = data;
+          this.stockPrice = this.stock.stockPriceDetails;
+        },
         error: err => console.log(err),
         complete: () => {
           this.intervalId = setInterval(() => this.getLastStockPrice(this.stock?.ticker), 60000);
@@ -46,13 +48,6 @@ export class StockDetailsComponent {
     this.stockService.getStockPriceData(ticker).subscribe({
       next: data => this.stockPrice = data,
       error: err => console.log(err),
-      complete: () => {
-        console.log(this.stockPrice);
-      }
     })
-  }
-
-  toggleDescVisibility() {
-    this.isCompanyDescVisible = !this.isCompanyDescVisible;
   }
 }
