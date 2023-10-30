@@ -14,6 +14,7 @@ import { LoginComponent } from './components/login/login.component';
 import { StockFormComponent } from './components/stock-form/stock-form.component';
 import {AuthInterceptor} from "./services/authInterceptor";
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { StockPurchaseFormComponent } from './components/stock-purchase-form/stock-purchase-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     RegistrationComponent,
     LoginComponent,
     StockFormComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    StockPurchaseFormComponent
   ],
   imports: [
     BrowserModule,

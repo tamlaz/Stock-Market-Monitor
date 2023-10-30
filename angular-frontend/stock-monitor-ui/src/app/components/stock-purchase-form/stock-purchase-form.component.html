@@ -1,0 +1,9 @@
+<div class="form-container mt-3">
+  <form [formGroup]="stockPurchaseForm">
+    <label for="quantity">Q</label>
+    <input type="number" id="quantity" value="" formControlName="quantity" placeholder="0">
+    <label for="price">$</label>
+    <input type="number" id="price" value="" formControlName="price" placeholder="0">
+    <button type="submit" (click)="buyStock()">Buy</button>
+  </form>
+</div>
