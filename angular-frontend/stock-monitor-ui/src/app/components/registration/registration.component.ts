@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
-import {UserAccountService} from "../../services/user-account.service";
+import {UserService} from "../../services/user-service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {validationHandler} from "../utils/validation-handler";
-import {AuthenticationService} from "../../services/authentication.service";
+import {AuthenticationService} from "../../services/authentication-service";
 import {Router} from "@angular/router";
 
 @Component({

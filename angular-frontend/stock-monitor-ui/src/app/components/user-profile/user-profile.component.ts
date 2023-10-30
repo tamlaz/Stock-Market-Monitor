@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {UserProfileDetailsModel} from "../../models/user-profile-details-model";
-import {UserAccountService} from "../../services/user-account.service";
+import {UserService} from "../../services/user-service";
 
 @Component({
   selector: 'app-user-profile',
@@ -12,7 +12,7 @@ export class UserProfileComponent {
   userProFileDetails: UserProfileDetailsModel;
   chosenSection: string = '';
 
-  constructor(private userService: UserAccountService) {
+  constructor(private userService: UserService) {
     this.ngOnInit();
   }
 

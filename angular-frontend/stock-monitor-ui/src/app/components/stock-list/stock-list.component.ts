@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 
 import {Router} from "@angular/router";
 import {faArrowDown, faArrowUp} from "@fortawesome/free-solid-svg-icons";
-import {UserAccountService} from "../../services/user-account.service";
+import {UserService} from "../../services/user-service";
 import {StockListItemModel} from "../../models/stock-list-item-model";
-import {StockService} from "../../services/stock.service";
+import {StockService} from "../../services/stock-service";
 
 @Component({
   selector: 'app-stock-list',
@@ -21,7 +21,7 @@ export class StockListComponent {
 
   constructor(private stockService: StockService,
               private router: Router,
-              private userService: UserAccountService) {
+              private userService: UserService) {
 
   }
 
@@ -107,8 +107,7 @@ export class StockListComponent {
     if (sessionStorage.getItem('user')) {
       this.userService.getUserProfileDetails().subscribe({
         next: data => this.currentUsersWatchList = data.watchList,
-        complete: () => console.log(this.currentUsersWatchList)
-      })
+        })
     }
   }
 

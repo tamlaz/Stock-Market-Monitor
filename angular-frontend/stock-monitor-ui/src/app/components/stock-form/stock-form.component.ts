@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {StockService} from "../../services/stock.service";
+import {StockService} from "../../services/stock-service";
 
 @Component({
   selector: 'app-stock-form',
