@@ -1,16 +1,25 @@
-<div class="container mt-5">
-  <div *ngIf="!!stock" class="card" style="width: 18rem;">
+<div *ngIf="!!stock" class="container mt-5">
+  <div class="card">
     <div class="img-container">
-      <img [src]="stock.logoUrl" class="card-img-top" [alt]="stock.ticker">
+      <div class="img-wrapper">
+        <img [src]="stock.logoUrl" class="card-img-top" [alt]="stock.ticker">
+      </div>
+      <div>
+        <h6>{{stock.name}}</h6>
+      </div>
     </div>
     <div class="card-body">
       <h5 class="card-title">{{stock.ticker}}</h5>
       <h6 *ngIf="!!stockPrice">Price: ${{stockPrice.lastStockPrice}}</h6>
       <h6 *ngIf="!stockPrice">Price: ${{stock.stockPriceDetails.lastStockPrice}}</h6>
-      <button class="btn btn-outline-dark" (click)="toggleDescVisibility()">Read company description</button>
-        <div *ngIf="isCompanyDescVisible" class="card-text">
+      <h6>Company Description</h6>
           {{stock.description}}
-        </div>
     </div>
+  </div>
+  <h3 class="mt-2">Buy {{stock.ticker}}</h3>
+  <div>
+    <app-stock-purchase-form [currentStock]="stock"
+    [lastStockPrice]="stockPrice.lastStockPrice === null ? stockPrice.previousClosePrice : stockPrice.lastStockPrice">
+    </app-stock-purchase-form>
   </div>
 </div>
