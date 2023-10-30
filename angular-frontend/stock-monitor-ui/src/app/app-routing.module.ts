@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'stock-details/:id', component: StockDetailsComponent},
   {path: 'registration', component: RegistrationComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'user-profile', component: UserProfileComponent},
+  {path: 'user-profile', component: UserProfileComponent, canActivate: [() => auth()]},
   {path: '**', redirectTo: '/stock-list'}
 ];
 
