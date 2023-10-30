@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,6 +22,9 @@ public class Wallet {
 
     @OneToOne(mappedBy = "wallet")
     private CustomUser user;
+
+    @ElementCollection
+    private Map<Long, Double> portfolio = new HashMap<>();
 
     public Wallet(Double balance, CustomUser user) {
         this.balance = balance;
