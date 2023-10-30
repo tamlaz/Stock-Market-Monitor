@@ -1,5 +1,6 @@
 package com.example.stockmarketmonitor.controller;
 
+import com.example.stockmarketmonitor.dto.incoming.StockPurchaseFormData;
 import com.example.stockmarketmonitor.dto.outgoing.CustomUserDetails;
 import com.example.stockmarketmonitor.service.CustomUserService;
 import com.example.stockmarketmonitor.validators.CustomUserCommandValidator;
@@ -32,7 +33,7 @@ public class CustomUserController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<CustomUserDetails> displayProfileData() {
         CustomUserDetails details = customUserService.getProfileDataDetails();
-        return new ResponseEntity<>(details,HttpStatus.OK);
+        return new ResponseEntity<>(details, HttpStatus.OK);
     }
 
     @PutMapping("/addToWatchList/{stockId}")
@@ -51,4 +52,10 @@ public class CustomUserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("buyStock")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<Void> buyStock(@RequestBody StockPurchaseFormData stockPurchaseFormData) {
+        customUserService.buyStock(stockPurchaseFormData);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
